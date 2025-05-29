@@ -69,3 +69,40 @@ WHERE product_type = "Checking"
 OR product_type = 'Savings';
 
 --3. The customer decided they want a savings account with a good interest rate and no monthly fee.
+SELECT product_name, interest_rate
+FROM bank_products
+WHERE product_type="Savings"
+AND interest_rate>=0.75
+AND monthly_fee=0;
+
+
+
+--1. We’re looking for a few products. Rewrite the following query using an IN() clause.
+
+--In other words, copy and paste the following query into db-fiddle, and change the WHERE clause to use IN.
+
+SELECT product_name
+, description
+FROM bank_products
+WHERE product_name ='Premium Checking'
+OR product_name ='High Yield Savings'
+OR product_name ='Platinum Credit Card'
+OR product_name ='Gold Credit Card'
+;
+
+--
+SELECT product_name
+, description
+FROM bank_products
+WHERE product_name IN ('Premium Checking', 'High Yield Savings', 'Platinum Checking', 'Gold Credit Card')
+;
+
+-- You know that your bank offers a service for businesses. Use LIKE to list the product name that starts with the word “Business”.
+
+SELECT product_name,
+description
+FROM bank_products
+Where product_name 
+LIKE '%Business%';
+
+
