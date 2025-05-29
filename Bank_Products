@@ -105,4 +105,12 @@ FROM bank_products
 Where product_name 
 LIKE '%Business%';
 
+--A new customer wants something with rewards. Show the name and description for all products that have the word “reward” in either the name or description.
+
+SELECT product_name,
+description
+FROM bank_products
+Where product_name 
+LIKE '%reward%'
+OR description LIKE '%reward%';
 
