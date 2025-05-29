@@ -1,0 +1,75 @@
+CREATE TABLE modules (
+name TEXT
+, modules_assigned REAL
+, modules_completed REAL
+);
+
+INSERT INTO modules VALUES
+('Brian Hernandez',	14,	7)
+, ('Chloe Kim',	14,	12)
+, ('Jesse Wright',	16,	10)
+, ('Priya Shepherd', 16, 15)
+, ('Tamara Hobbs',	20,	17)
+;
+
+
+-- Step 1. Let's see what this table looks like!
+
+-- SELECT *
+-- FROM modules;
+
+SELECT name
+, modules_assigned
+, modules_completed
+FROM modules;
+
+--  Step 2. Let’s add a new column called "modules_remaining" which equals the modules_completed subtracted from modules_assigned. Run the following query.
+
+-- SELECT *
+-- , modules_assigned - modules_completed AS modules_remaining
+-- FROM modules;
+
+SELECT name
+, modules_assigned- modules_completed
+AS modules_remaining
+FROM modules;
+
+--  Step 3. Now, let’s look at this data in a different way. Instead of asking how many modules are left, let’s find the fraction of completed modules. To do this, we’ll divide the completed modules by how many were assigned.
+
+--  Before you run the following query, add an alias to name the new column "fraction_completed” (you won’t use the quotation marks). In other words, use AS to name the column like in Step 2. When you’re done, run the query.
+
+--  SELECT *
+-- , modules_completed / modules_assigned
+-- FROM modules;
+
+SELECT name
+, modules_completed / modules_assigned
+AS fraction_completed
+FROM modules;
+
+--  Step 4. A very common calculation is converting fractions to percentages. We’ll copy our equation from before that gave us the fraction (modules_completed / modules_assigned) and multiply it by 100. 
+
+--  Before you run this query, assign an alias that names the new column “percent”.
+
+--  SELECT *
+-- , (modules_completed / modules_assigned)*100
+-- FROM modules;
+
+SELECT name
+, (modules_completed / modules_assigned)*100
+AS percent
+FROM modules;
+
+--  Now that we've seen some basic calculations, return to the lesson to learn about rounding. But don’t close this db-fiddle yet, we’ll be back for more one query!
+
+-- Step 5. ROUND() to different places
+
+SELECT
+name
+, (modules_completed / modules_assigned)*100 AS percent
+, ROUND((modules_completed / modules_assigned)*100, 3) AS 'ROUND(percent ,3)'
+, ROUND((modules_completed / modules_assigned)*100, 2) AS 'ROUND(percent ,2)'
+, ROUND((modules_completed / modules_assigned)*100, 1) AS 'ROUND(percent ,1)'
+, ROUND((modules_completed / modules_assigned)*100) AS 'ROUND(percent)'
+FROM modules
+;
