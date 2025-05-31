@@ -1,0 +1,78 @@
+CREATE TABLE customers (
+    customer_id INTEGER PRIMARY KEY,
+    customer_name TEXT,
+    contact_email TEXT,
+    contact_phone TEXT,
+    billing_address TEXT,
+    shipping_address TEXT
+);
+    
+CREATE TABLE shipments (
+    shipment_id INTEGER PRIMARY KEY,
+    customer_id INTEGER,
+    package_description TEXT,
+    weight_kg REAL,
+    shipping_method TEXT,
+    shipping_date DATE,
+    delivery_date DATE,
+    status TEXT
+);
+
+INSERT INTO customers (customer_id, customer_name, contact_email, contact_phone, billing_address, shipping_address)
+VALUES
+    (1, 'Lucy Keller', 'l.a.keller@example.com', '555-387-9920', '4902 Main St, Suite 101, Cityville, CA 39821', '4902 Main St, Suite 101, Cityville, CA 39821'),
+    (2, 'Alicia Henry', 'ahenry@example.com', '555-912-4491', '56 Elm St, Apt 20b, Townsville, NY 39018', '512 Walnut St, Hometown, PA 60178'),
+    (3, 'Daniel Tovey', 'dt1990@example.com', '555-621-0104', '2450 Oak Rd, Unit 5, Villagetown, TX 30072', '34 North Broadway, Grand Rapids, MI 47299'),
+    (4, 'Marjorie L. Whitney', 'whitneym12@example.com', '555-386-2400', '56 Pine Ave, Apt 3, Hamletown, FL 20971', '56 Pine Ave, Apt 3, Hamletown, FL 20971'),
+    (5, 'Gloria Cortez Martinez', 'gloria.c.martinez@example.com', '555-410-6984', '45 Cedar St, Suite 7, Parksville, AZ 98622', '45 Cedar St, Suite 7, Parksville, AZ 98622'),
+    (6, 'Michael Johnson III', 'mj3@example.com', '555-388-1922', '2344 Birch Rd, Unit 12, Meadowville, WA 10321', '2344 Birch Rd, Unit 12, Meadowville, WA 10321'),
+    (7, 'Jenny Yang', 'yang.jing.92@example.com', '555-827-1304', '98 Maple Ave, Apt 4, Beachside, NC 39912', '1844 Park Ave, Beach City, SC 38112'),
+    (8, 'Antoine King', 'a.king@example.com', '555-604-3217', '3 Redwood St, Suite 2B, Forestville, OR 40073', '9 West Elm St, Apt D, Meadowville, CA 63104'),
+    (9, 'Laura Dudek', 'laura.dudek@example.com', '555-904-5278', '700 Main St, Apt C, Silver Spring, MD 51530', '700 Main St, Apt C, Silver Spring, MD 51530'),
+    (10, 'A.R. Khan', 'arkhan@example.com', '555-712-8010', '30 South Oak Ave, Suite 1, Parksville, TX 85003', '30 South Oak Ave, Suite 1, Parksville, TX 85003');
+
+
+    INSERT INTO shipments (shipment_id, customer_id, package_description, weight_kg, shipping_method, shipping_date, delivery_date, status)
+VALUES
+    (1, 3, 'Electronics', 4.2, 'Express', '2023-07-31', '2023-08-02', 'Delivered'),
+    (2, 1, 'Clothing & Accessories', 3, 'Standard', '2023-09-04', '2023-09-08', 'Delivered'),
+    (3, 4, 'Furniture', 18.5, 'Express', '2023-10-15', '2023-10-17', 'Delivered'),
+    (4, 8, 'Books', 2, 'Standard', '2023-11-07', '2023-11-11', 'Delivered'),
+    (5, 9, 'Automotive Parts', 5.7, 'Express', '2023-12-08', '2023-12-11', 'Delivered'),
+    (6, 12, 'Clothing & Accessories', 3.1, 'Standard', '2023-12-13', '2023-12-17', 'Delivered'),
+    (7, 1, 'Electronics', 1.4, 'Standard', '2024-01-17', '2024-01-21', 'Delivered'),
+    (8, 5, 'Books', 1.7, 'Express', '2024-04-12', NULL, 'In Transit'),
+    (9, 10, 'Clothing & Accessories', 0.5, 'Express', '2024-04-12', NULL, 'In Transit'),
+    (10, 7, 'Electronics', 1.2, 'Standard', '2024-04-11', NULL, 'In Transit');
+
+
+--Display the customer id, name, and shipping address for customers who have an order.
+
+SELECT customers.customer_id, 
+customers.customer_name, 
+customers.shipping_address
+FROM customers
+INNER JOIN shipments
+ON customers.customer_id = shipments.customer_id;
+
+--Show the shipment id and shipping address for customers whose shipment has a status of "In Transit”.
+
+
+SELECT
+shipments.shipment_id
+, customers.shipping_address
+FROM customers
+INNER JOIN shipments
+ON customers.customer_id = shipments.customer_id
+WHERE shipments.status = "In Transit"
+;
+
+--Display the name and email address for customers who have not used Express shipments.
+
+
+
+SELECT DISTINCT customers.customer_name, customers.contact_email
+FROM customers
+INNER JOIN shipments
+ON customers.customer_id = shipments.customer_id
+WHERE shipments.shipping_method <> 'Express';
